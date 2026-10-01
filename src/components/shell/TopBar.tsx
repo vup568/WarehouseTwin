@@ -1,5 +1,6 @@
 import React from 'react'
 import { useStore } from '../../state/store'
+import { WAREHOUSE_ZONES } from '../../data/zone_layout'
 
 export const TopBar: React.FC = () => {
   const layers = useStore((s) => s.layers)
@@ -7,6 +8,10 @@ export const TopBar: React.FC = () => {
   const lightingMode = useStore((s) => s.lightingMode)
   const setLightingMode = useStore((s) => s.setLightingMode)
   const randomizeCargo = useStore((s) => s.randomizeCargo)
+  const simulateCongestion = useStore((s) => s.simulateCongestion)
+  const resetZones = useStore((s) => s.resetZones)
+  const selectedZoneId = useStore((s) => s.selectedZoneId)
+  const setSelectedZoneId = useStore((s) => s.setSelectedZoneId)
 
   return (
     <header className="top-nav">
@@ -22,21 +27,71 @@ export const TopBar: React.FC = () => {
           <div className="brand-title">
             AWS RoboMaker Warehouse <span className="pill">DIGITAL TWIN</span>
           </div>
-          <div className="brand-sub">R3F Architecture • Procedural Separated Cargo & Racks</div>
+          <div className="brand-sub">R3F Architecture • Procedural Separated Cargo & Zone Overlay</div>
         </div>
       </div>
 
       {/* Control Actions & Layer Toggles */}
       <div className="controls-group">
-        {/* ⭐ Cargo Separation Toggle (Main User Request) */}
+        {/* ⭐ Cargo Separation Toggle */}
         <button
           className={`control-btn primary-toggle ${layers.cargo ? 'active' : ''}`}
           onClick={() => toggleLayer('cargo')}
           title="Toggle Cargo visibility separately from Rack frames"
         >
           <span className="btn-icon">📦</span>
-          <span>Cargo Layer: <strong>{layers.cargo ? 'VISIBLE' : 'HIDDEN'}</strong></span>
+          <span>Cargo: <strong>{layers.cargo ? 'ON' : 'OFF'}</strong></span>
         </button>
+
+        {/* Phase 2: Zone Overlay Toggle */}
+        <button
+          className={`control-btn ${layers.zones ? 'active' : ''}`}
+          onClick={() => toggleLayer('zones')}
+          title="Toggle Logistics Zone Overlay on warehouse floor"
+        >
+          <span className="btn-icon">🗺️</span>
+          <span>Zones: <strong>{layers.zones ? 'ON' : 'OFF'}</strong></span>
+        </button>
+
+        {/* Zone Fast Nav Jump */}
+        {layers.zones && (
+          <div className="zone-jump-group">
+            {WAREHOUSE_ZONES.map((z) => (
+              <button
+                key={z.id}
+                className={`zone-pill-btn ${selectedZoneId === z.id ? 'active' : ''}`}
+                onClick={() => setSelectedZoneId(selectedZoneId === z.id ? null : z.id)}
+                title={`Jump camera focus to ${z.name}`}
+              >
+                {z.code.replace('ZONE ', '')}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Simulate Congestion Button */}
+        {layers.zones && (
+          <button
+            className="control-btn warning-toggle"
+            onClick={simulateCongestion}
+            title="Inject traffic congestion and blocked zone scenario"
+          >
+            <span className="btn-icon">⚠️</span>
+            <span>Sim Congestion</span>
+          </button>
+        )}
+
+        {/* Reset Zones Button */}
+        {layers.zones && (
+          <button
+            className="control-btn"
+            onClick={resetZones}
+            title="Reset all zones to NORMAL state"
+          >
+            <span className="btn-icon">🔄</span>
+            <span>Reset</span>
+          </button>
+        )}
 
         {/* Rack Structure Toggle */}
         <button
@@ -48,16 +103,6 @@ export const TopBar: React.FC = () => {
           <span>Racks</span>
         </button>
 
-        {/* Walls Toggle */}
-        <button
-          className={`control-btn ${layers.walls ? 'active' : ''}`}
-          onClick={() => toggleLayer('walls')}
-          title="Toggle warehouse exterior walls"
-        >
-          <span className="btn-icon">🧱</span>
-          <span>Walls</span>
-        </button>
-
         {/* Randomize Cargo Seed */}
         <button
           className="control-btn"
@@ -65,7 +110,7 @@ export const TopBar: React.FC = () => {
           title="Randomize warehouse inventory distribution"
         >
           <span className="btn-icon">🎲</span>
-          <span>Randomize Cargo</span>
+          <span>Randomize</span>
         </button>
 
         {/* Lighting Toggle */}
@@ -75,7 +120,7 @@ export const TopBar: React.FC = () => {
           title="Toggle lighting mood"
         >
           <span className="btn-icon">{lightingMode === 'industrial' ? '🌙' : '☀️'}</span>
-          <span>{lightingMode === 'industrial' ? 'Industrial' : 'Daylight'}</span>
+          <span>{lightingMode === 'industrial' ? 'Industrial' : 'Day'}</span>
         </button>
       </div>
     </header>

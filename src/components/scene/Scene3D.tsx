@@ -1,14 +1,30 @@
-import React from 'react'
-import { Canvas } from '@react-three/fiber'
+import React, { useEffect } from 'react'
+import { Canvas, useThree } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 import { ColladaModels } from './ColladaModels'
 import { RackInstances } from './RackInstances'
+import { ZoneOverlay } from './ZoneOverlay'
 import { useStore } from '../../state/store'
+
+function CameraController() {
+  const focusTarget = useStore((s) => s.focusTarget)
+  const { controls } = useThree()
+
+  useEffect(() => {
+    if (focusTarget && controls) {
+      // @ts-ignore
+      controls.target.set(focusTarget[0], 0.5, focusTarget[2])
+      // @ts-ignore
+      controls.update()
+    }
+  }, [focusTarget, controls])
+
+  return null
+}
 
 export const Scene3D: React.FC = () => {
   const lightingMode = useStore((s) => s.lightingMode)
-  const cameraMode = useStore((s) => s.cameraMode)
   const layers = useStore((s) => s.layers)
 
   const isDay = lightingMode === 'day'
@@ -40,6 +56,8 @@ export const Scene3D: React.FC = () => {
           maxDistance={70}
           target={[0, 1.5, 0]}
         />
+
+        <CameraController />
 
         {/* Lighting Setup */}
         <ambientLight intensity={isDay ? 1.0 : 0.7} />
@@ -77,6 +95,9 @@ export const Scene3D: React.FC = () => {
 
         {/* 2. WareTwin Separated Racks + Cargo Layers */}
         <RackInstances />
+
+        {/* 3. Phase 2: Logistics Zone Overlay */}
+        <ZoneOverlay />
       </Canvas>
     </div>
   )
