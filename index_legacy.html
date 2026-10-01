@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AWS RoboMaker Small Warehouse World 3D Visualizer</title>
+  <meta name="description" content="Interactive 3D Digital Twin Visualizer for AWS RoboMaker Small Warehouse World simulation package. Explore models, racks, AMR robots, and warehouse layout in real-time WebGL.">
+  <link rel="stylesheet" href="viewer.css">
+  
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./vendor/three.module.js",
+      "three/addons/loaders/ColladaLoader.js": "./vendor/ColladaLoader.js",
+      "three/addons/controls/OrbitControls.js": "./vendor/OrbitControls.js"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Loading Splash Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loader-logo">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+      </svg>
+    </div>
+    <div class="loader-title">AWS RoboMaker Warehouse World</div>
+    <div class="loader-sub">Preparing 3D Digital Twin Environment...</div>
+    <div class="progress-bar-container">
+      <div id="progress-fill" class="progress-bar-fill"></div>
+    </div>
+    <div id="loader-status" class="loader-status">Initializing WebGL engine...</div>
+  </div>
+
+  <!-- 3D Canvas Viewport -->
+  <div id="canvas-container"></div>
+
+  <!-- Top Navigation Bar -->
+  <header class="ui-layer top-nav">
+    <div class="brand-badge interactive">
+      <div class="brand-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>AWS RoboMaker Small Warehouse <span class="status-pill">LIVE 3D</span></h1>
+        <p>Gazebo Simulation Twin • 14m × 21m Logistics Grid</p>
+      </div>
+    </div>
+
+    <div class="nav-actions interactive">
+      <button id="btn-showcase" class="glass-btn" title="Inspect individual 3D warehouse assets">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        3D Asset Showcase
+      </button>
+
+      <button id="btn-lighting" class="glass-btn" title="Toggle Day/Industrial Night lighting">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        Lighting
+      </button>
+
+      <button id="btn-reset" class="glass-btn" title="Reset camera to default isometric overview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+          <path d="M3 3v5h5"></path>
+        </svg>
+        Reset View
+      </button>
+    </div>
+  </header>
+
+  <!-- Left HUD Controls -->
+  <aside class="ui-layer left-hud">
+    <!-- Camera Modes -->
+    <div class="hud-card interactive">
+      <div class="card-title">
+        Camera View
+        <span class="badge" id="current-view-badge">Orbit 3D</span>
+      </div>
+      <div class="camera-grid">
+        <button id="cam-orbit" class="cam-btn active">
+          <span class="btn-label">Orbit 3D</span>
+          <span>Free rotation</span>
+        </button>
+        <button id="cam-top" class="cam-btn">
+          <span class="btn-label">Top-Down</span>
+          <span>2D/3D Floor Plan</span>
+        </button>
+        <button id="cam-fps" class="cam-btn">
+          <span class="btn-label">Walkthrough</span>
+          <span>WASD / Eye-level</span>
+        </button>
+        <button id="cam-amr" class="cam-btn">
+          <span class="btn-label">AMR Cam</span>
+          <span>Patrol Follow</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Layer Toggles -->
+    <div class="hud-card interactive">
+      <div class="card-title">
+        Visibility Layers
+        <span class="badge">6 Layers</span>
+      </div>
+      <div class="layer-list">
+        <div class="layer-item" data-layer="roof">
+          <div class="layer-meta">
+            <span class="layer-dot dot-roof"></span>
+            <span>Roof (Mái nhà)</span>
+          </div>
+          <div class="toggle-switch" id="toggle-roof"></div>
+        </div>
+
+        <div class="layer-item" data-layer="walls">
+          <div class="layer-meta">
+            <span class="layer-dot dot-wall"></span>
+            <span>Walls (Tường ngoài)</span>
+          </div>
+          <div class="toggle-switch on" id="toggle-walls"></div>
+        </div>
+
+        <div class="layer-item" data-layer="racks">
+          <div class="layer-meta">
+            <span class="layer-dot dot-racks"></span>
+            <span>Racks & Shelves</span>
+          </div>
+          <div class="toggle-switch on" id="toggle-racks"></div>
+        </div>
+
+        <div class="layer-item" data-layer="cargo">
+          <div class="layer-meta">
+            <span class="layer-dot dot-cargo"></span>
+            <span>Cargo & Clutter</span>
+          </div>
+          <div class="toggle-switch on" id="toggle-cargo"></div>
+        </div>
+
+        <div class="layer-item" data-layer="amr">
+          <div class="layer-meta">
+            <span class="layer-dot dot-amr"></span>
+            <span>AMR Patrol Robot</span>
+          </div>
+          <div class="toggle-switch on" id="toggle-amr"></div>
+        </div>
+
+        <div class="layer-item" data-layer="lights">
+          <div class="layer-meta">
+            <span class="layer-dot dot-lights"></span>
+            <span>Ceiling Lamps</span>
+          </div>
+          <div class="toggle-switch on" id="toggle-lights"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Teleport Shortcuts -->
+    <div class="hud-card interactive">
+      <div class="card-title">
+        Quick Teleport
+        <span class="badge">Aisles</span>
+      </div>
+      <div class="camera-grid">
+        <button class="cam-btn" id="tele-aisle-a">
+          <span class="btn-label">Aisle A</span>
+          <span>Shelf D / E</span>
+        </button>
+        <button class="cam-btn" id="tele-aisle-b">
+          <span class="btn-label">Aisle B</span>
+          <span>Shelf F</span>
+        </button>
+        <button class="cam-btn" id="tele-dock">
+          <span class="btn-label">Pallet Dock</span>
+          <span>Pallet Jack Area</span>
+        </button>
+        <button class="cam-btn" id="tele-clutter">
+          <span class="btn-label">Clutter Staging</span>
+          <span>Boxes & Buckets</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Right HUD Panel: World Metrics & Inspector -->
+  <aside class="ui-layer right-hud">
+    <!-- Facility Info -->
+    <div class="hud-card interactive">
+      <div class="card-title">
+        Facility Telemetry
+        <span class="badge">AWS Small WH</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-label">Floor Area</div>
+          <div class="stat-val">294 <span>m²</span></div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Dimensions</div>
+          <div class="stat-val">14 × 21 <span>m</span></div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Total Shelves</div>
+          <div class="stat-val">7 <span>Units</span></div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Cargo Groups</div>
+          <div class="stat-val">11 <span>Sets</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Object Inspector (shows details on click) -->
+    <div class="hud-card interactive inspector-card" id="inspector-card">
+      <div class="inspector-header">
+        <span class="card-title" style="margin-bottom:0;">Object Inspector</span>
+        <span class="inspector-badge badge-rack" id="inspect-badge">RACK</span>
+      </div>
+      <div class="inspector-name" id="inspect-name">ShelfD_01_001</div>
+      <div class="inspector-id" id="inspect-id">model://aws_robomaker_warehouse_ShelfD_01</div>
+      
+      <div class="inspector-details">
+        <div class="prop-row">
+          <span class="prop-k">Position (X, Y, Z):</span>
+          <span class="prop-v" id="inspect-pos">4.73, 0.00, 1.24</span>
+        </div>
+        <div class="prop-row">
+          <span class="prop-k">Yaw Angle:</span>
+          <span class="prop-v" id="inspect-yaw">0.00 rad (0°)</span>
+        </div>
+        <div class="prop-row">
+          <span class="prop-k">Layer Category:</span>
+          <span class="prop-v" id="inspect-cat">Storage Rack</span>
+        </div>
+        <div class="prop-row">
+          <span class="prop-k">Collision Mesh:</span>
+          <span class="prop-v">Enabled (Static)</span>
+        </div>
+      </div>
+
+      <button class="focus-btn" id="inspect-focus-btn">Focus Camera on Object</button>
+    </div>
+  </aside>
+
+  <!-- Bottom Controls Hint & FPS -->
+  <footer class="ui-layer bottom-bar">
+    <div class="tips-pill interactive" id="controls-hint">
+      <div class="tip-item">
+        <span class="key-badge">LMB + Drag</span>
+        <span>Rotate</span>
+      </div>
+      <div class="tip-item">
+        <span class="key-badge">RMB + Drag</span>
+        <span>Pan</span>
+      </div>
+      <div class="tip-item">
+        <span class="key-badge">Scroll</span>
+        <span>Zoom</span>
+      </div>
+      <div class="tip-item">
+        <span class="key-badge">Click Object</span>
+        <span>Inspect</span>
+      </div>
+      <div class="tip-item" id="fps-hint" style="display:none;">
+        <span class="key-badge">W,A,S,D</span>
+        <span>Walk</span>
+      </div>
+    </div>
+
+    <div class="fps-badge interactive">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#10b981;"></span>
+      <span id="fps-counter">60</span> FPS
+    </div>
+  </footer>
+
+  <!-- Asset Showcase Modal -->
+  <div id="showcase-modal" class="modal-overlay">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title">3D Warehouse Model Catalog & Showcase</div>
+        <button id="btn-close-modal" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="catalog-sidebar" id="catalog-list">
+          <!-- Populated by JS -->
+        </div>
+        <div class="preview-viewport">
+          <div id="preview-canvas-container" style="width:100%;height:100%;"></div>
+          <div class="preview-controls">
+            <button id="btn-preview-wireframe" class="glass-btn">Wireframe</button>
+            <button id="btn-preview-rotate" class="glass-btn active">Turntable</button>
+          </div>
+          <div class="preview-info" id="preview-model-info">
+            Loading asset preview...
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="viewer.js"></script>
+</body>
+</html>
