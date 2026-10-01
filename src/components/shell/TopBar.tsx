@@ -27,7 +27,7 @@ export const TopBar: React.FC = () => {
           <div className="brand-title">
             AWS RoboMaker Warehouse <span className="pill">DIGITAL TWIN</span>
           </div>
-          <div className="brand-sub">R3F Architecture • Procedural Separated Cargo & Zone Overlay</div>
+          <div className="brand-sub">R3F Architecture • Procedural Cargo, Racks & Logistics Zones</div>
         </div>
       </div>
 
@@ -41,6 +41,36 @@ export const TopBar: React.FC = () => {
         >
           <span className="btn-icon">📦</span>
           <span>Cargo: <strong>{layers.cargo ? 'ON' : 'OFF'}</strong></span>
+        </button>
+
+        {/* Rack Structure Toggle */}
+        <button
+          className={`control-btn ${layers.racks ? 'active' : ''}`}
+          onClick={() => toggleLayer('racks')}
+          title="Toggle steel rack frames"
+        >
+          <span className="btn-icon">🏗️</span>
+          <span>Racks</span>
+        </button>
+
+        {/* 🧱 Walls Toggle (Restored) */}
+        <button
+          className={`control-btn ${layers.walls ? 'active' : ''}`}
+          onClick={() => toggleLayer('walls')}
+          title="Toggle warehouse exterior walls"
+        >
+          <span className="btn-icon">🧱</span>
+          <span>Walls: <strong>{layers.walls ? 'ON' : 'OFF'}</strong></span>
+        </button>
+
+        {/* 🏠 Roof Toggle */}
+        <button
+          className={`control-btn ${layers.roof ? 'active' : ''}`}
+          onClick={() => toggleLayer('roof')}
+          title="Toggle warehouse ceiling and roof"
+        >
+          <span className="btn-icon">🏠</span>
+          <span>Roof: <strong>{layers.roof ? 'ON' : 'OFF'}</strong></span>
         </button>
 
         {/* Phase 2: Zone Overlay Toggle */}
@@ -92,16 +122,6 @@ export const TopBar: React.FC = () => {
             <span>Reset</span>
           </button>
         )}
-
-        {/* Rack Structure Toggle */}
-        <button
-          className={`control-btn ${layers.racks ? 'active' : ''}`}
-          onClick={() => toggleLayer('racks')}
-          title="Toggle steel rack frames"
-        >
-          <span className="btn-icon">🏗️</span>
-          <span>Racks</span>
-        </button>
 
         {/* Randomize Cargo Seed */}
         <button
