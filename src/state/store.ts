@@ -7,7 +7,9 @@ export interface AppLayers {
   racks: boolean;
   cargo: boolean; // Independent layer: toggle on/off to separate cargo from rack
   zones: boolean; // Zone Overlay layer
+  agv: boolean;
   amr: boolean;
+  barriers: boolean;
   lights: boolean;
 }
 
@@ -17,6 +19,7 @@ export type LightingMode = 'industrial' | 'day';
 interface AppState {
   layers: AppLayers;
   cameraMode: CameraMode;
+  cameraPresetId: string | null;
   lightingMode: LightingMode;
   selectedRackId: string | null;
   selectedZoneId: string | null;
@@ -30,6 +33,7 @@ interface AppState {
   toggleLayer: (layer: keyof AppLayers) => void;
   setLayer: (layer: keyof AppLayers, value: boolean) => void;
   setCameraMode: (mode: CameraMode) => void;
+  setCameraPreset: (id: string | null) => void;
   setLightingMode: (mode: LightingMode) => void;
   setSelectedRackId: (id: string | null) => void;
   setSelectedZoneId: (id: string | null) => void;
@@ -52,14 +56,17 @@ const initialZoneStatuses: Record<string, ZoneStatus> = {
 export const useStore = create<AppState>((set) => ({
   layers: {
     roof: false,
-    walls: true,
+    walls: false,
     racks: true,
     cargo: true, // cargo separate from racks
     zones: true, // Zone overlay enabled by default in Phase 2
+    agv: true,
     amr: true,
-    lights: true,
+    barriers: true,
+    lights: false, // Legacy compatibility only; hanging fixtures are no longer mounted.
   },
   cameraMode: 'orbit',
+  cameraPresetId: null,
   lightingMode: 'industrial',
   selectedRackId: null,
   selectedZoneId: null,
@@ -78,6 +85,7 @@ export const useStore = create<AppState>((set) => ({
     })),
 
   setCameraMode: (mode) => set({ cameraMode: mode }),
+  setCameraPreset: (id) => set({ cameraPresetId: id, focusTarget: null }),
   setLightingMode: (mode) => set({ lightingMode: mode }),
   setSelectedRackId: (id) => set({ selectedRackId: id }),
   

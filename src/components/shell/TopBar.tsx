@@ -1,6 +1,6 @@
 import React from 'react'
 import { useStore } from '../../state/store'
-import { WAREHOUSE_ZONES } from '../../data/zone_layout'
+import { DENSO_LAYOUT_V1 } from '../../data/denso-layout-v1'
 
 export const TopBar: React.FC = () => {
   const layers = useStore((s) => s.layers)
@@ -8,10 +8,8 @@ export const TopBar: React.FC = () => {
   const lightingMode = useStore((s) => s.lightingMode)
   const setLightingMode = useStore((s) => s.setLightingMode)
   const randomizeCargo = useStore((s) => s.randomizeCargo)
-  const simulateCongestion = useStore((s) => s.simulateCongestion)
-  const resetZones = useStore((s) => s.resetZones)
-  const selectedZoneId = useStore((s) => s.selectedZoneId)
-  const setSelectedZoneId = useStore((s) => s.setSelectedZoneId)
+  const cameraPresetId = useStore((s) => s.cameraPresetId)
+  const setCameraPreset = useStore((s) => s.setCameraPreset)
 
   return (
     <header className="top-nav">
@@ -25,9 +23,9 @@ export const TopBar: React.FC = () => {
         </div>
         <div>
           <div className="brand-title">
-            AWS RoboMaker Warehouse <span className="pill">DIGITAL TWIN</span>
+            Denso TLIP Warehouse <span className="pill">DIGITAL TWIN</span>
           </div>
-          <div className="brand-sub">R3F Architecture • Procedural Cargo, Racks & Logistics Zones</div>
+          <div className="brand-sub">AWS floor & roof • Mái {DENSO_LAYOUT_V1.warehouse.heightM} m • Industrial rack chờ duyệt</div>
         </div>
       </div>
 
@@ -53,16 +51,6 @@ export const TopBar: React.FC = () => {
           <span>Racks</span>
         </button>
 
-        {/* 🧱 Walls Toggle (Restored) */}
-        <button
-          className={`control-btn ${layers.walls ? 'active' : ''}`}
-          onClick={() => toggleLayer('walls')}
-          title="Toggle warehouse exterior walls"
-        >
-          <span className="btn-icon">🧱</span>
-          <span>Walls: <strong>{layers.walls ? 'ON' : 'OFF'}</strong></span>
-        </button>
-
         {/* 🏠 Roof Toggle */}
         <button
           className={`control-btn ${layers.roof ? 'active' : ''}`}
@@ -83,51 +71,23 @@ export const TopBar: React.FC = () => {
           <span>Zones: <strong>{layers.zones ? 'ON' : 'OFF'}</strong></span>
         </button>
 
-        {/* Zone Fast Nav Jump */}
-        {layers.zones && (
-          <div className="zone-jump-group">
-            {WAREHOUSE_ZONES.map((z) => (
-              <button
-                key={z.id}
-                className={`zone-pill-btn ${selectedZoneId === z.id ? 'active' : ''}`}
-                onClick={() => setSelectedZoneId(selectedZoneId === z.id ? null : z.id)}
-                title={`Jump camera focus to ${z.name}`}
-              >
-                {z.code.replace('ZONE ', '')}
-              </button>
-            ))}
-          </div>
-        )}
+        <button className={`control-btn ${layers.agv ? 'active' : ''}`} onClick={() => toggleLayer('agv')} title="Toggle dedicated AGV lane">
+          <span className="btn-icon">🤖</span><span>AGV Lane</span>
+        </button>
 
-        {/* Simulate Congestion Button */}
-        {layers.zones && (
-          <button
-            className="control-btn warning-toggle"
-            onClick={simulateCongestion}
-            title="Inject traffic congestion and blocked zone scenario"
-          >
-            <span className="btn-icon">⚠️</span>
-            <span>Sim Congestion</span>
-          </button>
-        )}
+        <button className={`control-btn ${layers.amr ? 'active' : ''}`} onClick={() => toggleLayer('amr')} title="Toggle dedicated AMR lane">
+          <span className="btn-icon">🧭</span><span>AMR Lane</span>
+        </button>
 
-        {/* Reset Zones Button */}
-        {layers.zones && (
-          <button
-            className="control-btn"
-            onClick={resetZones}
-            title="Reset all zones to NORMAL state"
-          >
-            <span className="btn-icon">🔄</span>
-            <span>Reset</span>
-          </button>
-        )}
+        <button className={`control-btn ${layers.barriers ? 'active' : ''}`} onClick={() => toggleLayer('barriers')} title="Toggle safety and customs barriers">
+          <span className="btn-icon">🚧</span><span>Barriers</span>
+        </button>
 
         {/* Randomize Cargo Seed */}
         <button
           className="control-btn"
           onClick={randomizeCargo}
-          title="Randomize warehouse inventory distribution"
+          title="Đổi dữ liệu hàng demo; không thay đổi kết cấu rack"
         >
           <span className="btn-icon">🎲</span>
           <span>Randomize</span>
@@ -140,8 +100,13 @@ export const TopBar: React.FC = () => {
           title="Toggle lighting mood"
         >
           <span className="btn-icon">{lightingMode === 'industrial' ? '🌙' : '☀️'}</span>
-          <span>{lightingMode === 'industrial' ? 'Industrial' : 'Day'}</span>
+          <span>{lightingMode === 'industrial' ? 'Night / Industrial' : 'Day'}</span>
         </button>
+        <select className="control-btn camera-select" aria-label="Góc nhìn kho" value={cameraPresetId ?? ''}
+          onChange={event => setCameraPreset(event.target.value || null)}>
+          <option value="">Góc nhìn…</option>
+          {DENSO_LAYOUT_V1.cameraPresets.map(preset => <option key={preset.id} value={preset.id}>{preset.name}</option>)}
+        </select>
       </div>
     </header>
   )
