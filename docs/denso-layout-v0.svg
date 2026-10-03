@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 900" role="img" aria-labelledby="title desc">
+  <title id="title">Denso TLIP warehouse layout v0</title>
+  <desc id="desc">Top-down review snapshot showing loading, receive, storage racks, customs fence, domestic and international areas, inbound stages and vehicle lanes.</desc>
+  <defs>
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#d8dee9" stroke-width="1"/>
+    </pattern>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ea580c"/>
+    </marker>
+    <style>
+      text { font-family: Arial, sans-serif; fill: #172033; }
+      .label { font-size: 18px; font-weight: 700; }
+      .small { font-size: 13px; }
+      .zone { stroke-width: 2; }
+      .rack { fill: #9aa9bc; stroke: #334155; stroke-width: 1.5; }
+      .rack-fast { fill: #7aa2d6; }
+      .lane { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <rect width="1100" height="900" fill="#f7f8fa"/>
+  <rect width="1100" height="900" fill="url(#grid)"/>
+  <line x1="0" y1="880" x2="1100" y2="880" stroke="#64748b" stroke-width="60" stroke-opacity="0.24"/>
+  <rect x="4" y="4" width="1092" height="892" fill="none" stroke="#111827" stroke-width="8"/>
+
+  <rect class="zone" x="0" y="80" width="240" height="740" fill="#f7d7b5" fill-opacity="0.7" stroke="#c2410c"/>
+  <text class="label" x="18" y="112">LOADING / OUT</text>
+
+  <rect class="zone" x="840" y="80" width="260" height="740" fill="#fff1a8" fill-opacity="0.68" stroke="#ca8a04"/>
+  <text class="label" x="875" y="112">RECEIVE / IN</text>
+
+  <rect class="zone" x="260" y="230" width="560" height="520" fill="#dbeafe" fill-opacity="0.5" stroke="#2563eb"/>
+  <text class="label" x="278" y="258">MAIN STORAGE</text>
+
+  <rect class="zone" x="220" y="20" width="600" height="114" fill="#bbf7d0" fill-opacity="0.8" stroke="#15803d"/>
+  <text class="label" x="418" y="50">DOMESTIC / VAT</text>
+
+  <rect class="zone" x="220" y="136" width="600" height="614" fill="none" stroke="#7c3aed" stroke-width="3" stroke-dasharray="12 8"/>
+  <text class="small" x="230" y="162">INTERNATIONAL / NON-VAT classification</text>
+
+  <rect x="220" y="134" width="600" height="2" fill="#dc2626"/>
+  <rect x="215" y="129" width="610" height="12" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="5 4"/>
+  <text class="small" x="430" y="126" fill="#991b1b">FIXED CUSTOMS FENCE + 24/7 CAMERA</text>
+  <circle cx="520" cy="130" r="8" fill="#111827"/>
+
+  <rect class="zone" x="880" y="160" width="180" height="140" fill="#fde68a" stroke="#b45309"/>
+  <text class="small" x="904" y="190">ARRIVAL STAGING</text>
+  <rect class="zone" x="870" y="320" width="160" height="80" fill="#fecaca" stroke="#b91c1c"/>
+  <text class="small" x="894" y="350">CONVEYOR QC</text>
+  <rect x="890" y="350" width="120" height="20" fill="#374151"/>
+  <rect class="zone" x="860" y="420" width="180" height="100" fill="#fed7aa" stroke="#c2410c"/>
+  <text class="small" x="886" y="452">TRANSFER STAGING</text>
+
+  <rect class="zone" x="240" y="770" width="600" height="110" fill="#e5e7eb" stroke="#4b5563"/>
+  <text class="label" x="438" y="842">OFFICE / SUPPORT</text>
+  <line x1="240" y1="780" x2="840" y2="780" stroke="#16a34a" stroke-width="15" stroke-opacity="0.5"/>
+  <text class="small" x="436" y="773">PEDESTRIAN WALKWAY</text>
+
+  <rect x="960" y="820" width="100" height="76" fill="#86efac" fill-opacity="0.75" stroke="#166534" stroke-width="2"/>
+  <text class="small" x="970" y="846">INBOUND</text>
+  <text class="small" x="970" y="864">DOCK</text>
+  <rect x="60" y="820" width="100" height="76" fill="#93c5fd" fill-opacity="0.75" stroke="#1d4ed8" stroke-width="2"/>
+  <text class="small" x="72" y="846">OUTBOUND</text>
+  <text class="small" x="72" y="864">DOCK</text>
+
+  <g aria-label="16 double racks">
+    <rect class="rack" x="275" y="699" width="250" height="22"/><rect class="rack" x="545" y="699" width="250" height="22"/>
+    <rect class="rack" x="275" y="635" width="250" height="22"/><rect class="rack" x="545" y="635" width="250" height="22"/>
+    <rect class="rack rack-fast" x="275" y="571" width="250" height="22"/><rect class="rack rack-fast" x="545" y="571" width="250" height="22"/>
+    <rect class="rack rack-fast" x="275" y="507" width="250" height="22"/><rect class="rack rack-fast" x="545" y="507" width="250" height="22"/>
+    <rect class="rack rack-fast" x="275" y="443" width="250" height="22"/><rect class="rack rack-fast" x="545" y="443" width="250" height="22"/>
+    <rect class="rack rack-fast" x="275" y="379" width="250" height="22"/><rect class="rack rack-fast" x="545" y="379" width="250" height="22"/>
+    <rect class="rack" x="275" y="315" width="250" height="22"/><rect class="rack" x="545" y="315" width="250" height="22"/>
+    <rect class="rack" x="275" y="251" width="250" height="22"/><rect class="rack" x="545" y="251" width="250" height="22"/>
+  </g>
+
+  <polyline class="lane" points="950,470 840,486 810,486" stroke="#ea580c" stroke-width="25" stroke-opacity="0.55" marker-end="url(#arrow-orange)"/>
+  <polyline class="lane" points="820,486 820,760 240,760 240,230 820,230" stroke="#2563eb" stroke-width="30" stroke-opacity="0.48"/>
+  <polyline class="lane" points="260,486 160,486 100,900" stroke="#ea580c" stroke-width="25" stroke-opacity="0.55" marker-end="url(#arrow-orange)"/>
+
+  <text class="label" x="922" y="885" fill="#166534">GATE 1 / IN</text>
+  <text class="label" x="20" y="885" fill="#1d4ed8">GATE 2 / OUT</text>
+
+  <g transform="translate(18 170)">
+    <rect width="198" height="150" fill="#ffffff" fill-opacity="0.9" stroke="#64748b"/>
+    <text class="small" x="12" y="24">V0 ASSUMPTIONS</text>
+    <text class="small" x="12" y="48">110 × 90 m · height 5 m</text>
+    <text class="small" x="12" y="72">16 double racks</text>
+    <text class="small" x="12" y="96">120 pallet positions/rack</text>
+    <text class="small" x="12" y="120">Blue racks = fast-moving</text>
+    <text class="small" x="12" y="142">Grey racks = slow-moving</text>
+  </g>
+</svg>

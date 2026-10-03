@@ -1,0 +1,404 @@
+{
+  "objects": [
+    {
+      "name": "ground:aws-tile-0-0",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-0-1",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-0-2",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-0-3",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-0-4",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-1-0",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-1-1",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-1-2",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-1-3",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-1-4",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-2-0",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-2-1",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-2-2",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-2-3",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-2-4",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-3-0",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-3-1",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-3-2",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-3-3",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-3-4",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-4-0",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-4-1",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-4-2",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-4-3",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-4-4",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-5-0",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-5-1",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-5-2",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-5-3",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-5-4",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-6-0",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-6-1",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-6-2",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-6-3",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-6-4",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-7-0",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-7-1",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-7-2",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-7-3",
+      "visible": true
+    },
+    {
+      "name": "ground:aws-tile-7-4",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-0-0",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-0-1",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-0-2",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-0-3",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-0-4",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-1-0",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-1-1",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-1-2",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-1-3",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-1-4",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-2-0",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-2-1",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-2-2",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-2-3",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-2-4",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-3-0",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-3-1",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-3-2",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-3-3",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-3-4",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-4-0",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-4-1",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-4-2",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-4-3",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-4-4",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-5-0",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-5-1",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-5-2",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-5-3",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-5-4",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-6-0",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-6-1",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-6-2",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-6-3",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-6-4",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-7-0",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-7-1",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-7-2",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-7-3",
+      "visible": true
+    },
+    {
+      "name": "roof:aws-tile-7-4",
+      "visible": true
+    },
+    {
+      "name": "RackStructure:uprights",
+      "count": 704,
+      "visible": true
+    },
+    {
+      "name": "RackStructure:footplates",
+      "count": 704,
+      "visible": true
+    },
+    {
+      "name": "RackStructure:beams",
+      "count": 3840,
+      "visible": true
+    },
+    {
+      "name": "RackStructure:supports",
+      "count": 5760,
+      "visible": true
+    },
+    {
+      "name": "RackStructure:braces",
+      "count": 2112,
+      "visible": true
+    },
+    {
+      "name": "RackStructure:frameTies",
+      "count": 2464,
+      "visible": true
+    },
+    {
+      "name": "RackStructure:spacers",
+      "count": 528,
+      "visible": true
+    },
+    {
+      "name": "RackStructure:decks",
+      "count": 1920,
+      "visible": true
+    },
+    {
+      "name": "Cargo:woodenPallets",
+      "count": 14482,
+      "visible": true
+    },
+    {
+      "name": "Cargo:boxes",
+      "count": 1114,
+      "visible": true
+    },
+    {
+      "name": "Cargo:tape",
+      "count": 1114,
+      "visible": true
+    }
+  ],
+  "roofMinY": 10,
+  "fog": null,
+  "occupiedBins": 1114,
+  "lights": [
+    "AmbientLight",
+    "HemisphereLight",
+    "DirectionalLight"
+  ],
+  "renderer": {
+    "calls": 192,
+    "triangles": 1109108
+  },
+  "cargoSeed": 42,
+  "finalRenderer": {
+    "calls": 192,
+    "triangles": 1109108
+  },
+  "errors": [],
+  "checks": {
+    "cargoDoesNotChangeStructure": true,
+    "independentCargo": true,
+    "randomizeWhileRackHidden": true,
+    "roofPreservedByCamera": true,
+    "noHangingLamps": true
+  }
+}
